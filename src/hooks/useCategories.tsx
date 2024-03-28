@@ -2,20 +2,8 @@ import React, { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
 import { CanceledError } from "axios";
 
-export interface Product {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-  thumbnail: string;
-}
-interface FetchProductResponse {
-  count: number;
-  products: Product[];
-}
-
-const useProducts = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+const useCategories = () => {
+  const [categories, setcategories] = useState([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -23,9 +11,11 @@ const useProducts = () => {
     const controller = new AbortController();
     setIsLoading(true);
     apiClient
-      .get<FetchProductResponse>("/products", { signal: controller.signal })
+      .get("/products/categories", {
+        signal: controller.signal,
+      })
       .then((response) => {
-        setProducts(response.data.products);
+        setcategories(response.data);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -36,7 +26,7 @@ const useProducts = () => {
 
     return () => controller.abort();
   }, []);
-  return { products, error, isLoading };
+  return { categories, error, isLoading };
 };
 
-export default useProducts;
+export default useCategories;
