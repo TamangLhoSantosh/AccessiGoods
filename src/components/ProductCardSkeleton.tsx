@@ -3,7 +3,7 @@ import React from "react";
 
 const ProductCardSkeleton = () => {
   return (
-    <Card borderRadius={10} overflow={"hidden"} width={600}>
+    <Card>
       <Skeleton height={500}>
         <CardBody></CardBody>
       </Skeleton>
