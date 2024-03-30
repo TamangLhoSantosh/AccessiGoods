@@ -8,8 +8,8 @@ interface Props {
 
 const ProductCard = ({ product }: Props) => {
   return (
-    <Card height={500}>
-      <Image src={product.thumbnail} height={400} />
+    <Card height={400}>
+      <Image src={product.thumbnail} height={300} />
       <CardBody>
         <Heading fontSize={"2xl"}>{product.title}</Heading>
       </CardBody>

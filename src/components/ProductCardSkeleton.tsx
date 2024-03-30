@@ -1,10 +1,9 @@
 import { Card, CardBody, Skeleton } from "@chakra-ui/react";
-import React from "react";
 
 const ProductCardSkeleton = () => {
   return (
     <Card>
-      <Skeleton height={500}>
+      <Skeleton height={400}>
         <CardBody></CardBody>
       </Skeleton>
     </Card>
