@@ -8,5 +8,8 @@ export interface Product {
   thumbnail: string;
 }
 
-const useProducts = () => useData<Product>("/products");
+const useProducts = (selectedCategory: string | null) =>
+  useData<Product>("/products", { params: { category: selectedCategory } }, [
+    selectedCategory,
+  ]);
 export default useProducts;

@@ -1,14 +1,40 @@
-import React from "react";
 import useCategories from "../hooks/useCategories";
+import { Button, List, ListItem, Spinner } from "@chakra-ui/react";
 
-const CategoriesList = () => {
+interface Props {
+  onSelectCategory: (category: string) => void;
+}
+
+const CategoriesList = ({ onSelectCategory }: Props) => {
+  const capitalizeAndRemoveDash = (str: string): string => {
+    const words = str
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1));
+    return words.join(" ");
+  };
+
   const { categories, error, isLoading } = useCategories();
+
+  if (isLoading) return <Spinner />;
+
+  if (error) return null;
+
   return (
-    <ul>
+    <List>
       {categories.map((category) => (
-        <li>{category}</li>
+        <ListItem key={category}>
+          <Button
+            onClick={() => {
+              onSelectCategory(category);
+            }}
+            fontSize={"lg"}
+            variant={"link"}
+          >
+            {capitalizeAndRemoveDash(category)}
+          </Button>
+        </ListItem>
       ))}
-    </ul>
+    </List>
   );
 };
 
