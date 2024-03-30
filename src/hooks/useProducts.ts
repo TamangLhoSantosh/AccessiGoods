@@ -1,3 +1,4 @@
+import { ProductQuery } from "../App";
 import useData from "./useData";
 
 export interface Product {
@@ -8,8 +9,17 @@ export interface Product {
   thumbnail: string;
 }
 
-const useProducts = (selectedCategory: string | null) =>
-  useData<Product>("/products", { params: { category: selectedCategory } }, [
-    selectedCategory,
-  ]);
+const useProducts = (productQuery: ProductQuery) =>
+  useData<Product>(
+    productQuery.category
+      ? `product/category/${productQuery.category}`
+      : "product",
+    {
+      params: {
+        products: productQuery.searchText,
+        category: productQuery.category,
+      },
+    },
+    [productQuery]
+  );
 export default useProducts;

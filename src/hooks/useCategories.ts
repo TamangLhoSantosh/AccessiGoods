@@ -11,7 +11,7 @@ const useCategories = () => {
     const controller = new AbortController();
     setIsLoading(true);
     apiClient
-      .get("/products/categories", {
+      .get("products/categories", {
         signal: controller.signal,
       })
       .then((response) => {

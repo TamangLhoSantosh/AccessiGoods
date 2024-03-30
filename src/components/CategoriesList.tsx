@@ -1,11 +1,12 @@
 import useCategories from "../hooks/useCategories";
-import { Button, List, ListItem, Spinner } from "@chakra-ui/react";
+import { Button, Heading, List, ListItem, Spinner } from "@chakra-ui/react";
 
 interface Props {
   onSelectCategory: (category: string) => void;
+  selectedCategory: string | null;
 }
 
-const CategoriesList = ({ onSelectCategory }: Props) => {
+const CategoriesList = ({ selectedCategory, onSelectCategory }: Props) => {
   const capitalizeAndRemoveDash = (str: string): string => {
     const words = str
       .split("-")
@@ -20,21 +21,29 @@ const CategoriesList = ({ onSelectCategory }: Props) => {
   if (error) return null;
 
   return (
-    <List>
-      {categories.map((category) => (
-        <ListItem key={category}>
-          <Button
-            onClick={() => {
-              onSelectCategory(category);
-            }}
-            fontSize={"lg"}
-            variant={"link"}
-          >
-            {capitalizeAndRemoveDash(category)}
-          </Button>
-        </ListItem>
-      ))}
-    </List>
+    <>
+      <Heading fontSize={"2xl"} marginY={4}>
+        Categories
+      </Heading>
+      <List>
+        {categories.map((category) => (
+          <ListItem key={category} paddingY={1}>
+            <Button
+              whiteSpace={"normal"}
+              textAlign={"left"}
+              fontWeight={category === selectedCategory ? "bold" : "normal"}
+              onClick={() => {
+                onSelectCategory(category);
+              }}
+              fontSize={"lg"}
+              variant={"link"}
+            >
+              {capitalizeAndRemoveDash(category)}
+            </Button>
+          </ListItem>
+        ))}
+      </List>
+    </>
   );
 };
 
